@@ -1,0 +1,36 @@
+{% extends "quotes/quotes_base.html" %}
+
+{% block content %}
+
+<h3>Add a new quote</h3>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'quotes:add' %}" method="post">
+{% csrf_token %}
+    <div class="form-group">
+      <label for="textid">Quote Text</label>
+      <textarea name="text" rows=10 cols=40 id="textid" class="form-control" />{{ quote.text }}</textarea>
+    </div>
+    <div class="form-group">
+      <label for="authid">Author</label></p>
+      <input type="text" name="author" id="authid" class="form-control" value="{{quote.author}}" />
+    </div>
+    <div class="form-group">
+      <label for="sourceid">Source</label></p>
+      <input type="text" name="source" id="sourceid" class="form-control" value="{{quote.source}}" />
+    </div>
+    <div class="form-group">
+      <label for="notesid">Notes</label></p>
+      <textarea name="notes" rows=8 cols=40 id="notesid" class="form-control" value="{{quote.notes}}" /></textarea>
+    </div>
+    <p>Tags</p>
+    <p>
+      <input type="checkbox" name="newtagcheck" value="new">
+      <input type="text" name="newtag" id="newtagid">
+    </p>
+    <input class="button_style btn btn-primary" type="submit" value="Add" />
+    <a class="button_style btn btn-danger" href="{% url 'quotes:index' %}">Cancel</a>
+</form>
+    
+{% endblock %}

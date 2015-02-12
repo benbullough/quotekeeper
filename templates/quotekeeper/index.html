@@ -1,0 +1,37 @@
+{% extends 'quotekeeper/base.html' %}
+
+{% block app_style %}
+  {% load static from staticfiles %}
+  <link rel="stylesheet" href="{% static "quotekeeper/cover.css" %}" />
+{% endblock %}   
+    
+{% block side %}
+{% endblock %}
+
+{% block intro %}
+  <div id="intro" class="site-wrapper">
+  
+    <div class="site-wrapper-inner">
+
+      <div class="cover-container">
+        <div class="inner cover">
+            <h1 class="cover-heading">Quote Keeper</h1>
+            <p class="lead">Never forget a great quote</p>
+          <br> 
+          {% if request.get_host == "127.0.0.1:8000" %} 
+            <p><a class="button_style btn btn-primary" href="http://{{ request.get_host }}{% url 'register' %}">Register</a></p> 
+            <p><a class="button_style btn btn-default" href="http://{{ request.get_host }}{% url 'quotes:index' %}">View My Quotes</a></p>
+          {% else %}
+            <p><a class="button_style btn btn-primary" href="https://{{ request.get_host }}{% url 'register' %}">Register</a></p> 
+            <p><a class="button_style btn btn-default" href="https://{{ request.get_host }}{% url 'quotes:index' %}">View My Quotes</a></p>
+          {% endif %}
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block content %}
+{% endblock %}

@@ -1,0 +1,153 @@
+{% extends "quotes/quotes_base.html" %}
+
+{% block side %}
+
+    <ul class="nav nav-sidebar">
+      <li><a class="button_style btn btn-default" href="{% url 'quotes:index' %}">All quotes</a></li>
+      <li><a class="button_style btn btn-default" href="{% url 'quotes:new' %}">Add</a></li>
+    </ul>
+    
+    <br>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <h4>Tags</h4>
+            </a>
+          </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <ul class="nav nav-sidebar list-unstyled">
+              {% for t,c in tag_list_counts %}
+                <li class="side-element"><span><a class="tag_style" href="{% url 'quotes:index' %}?tag={{t|urlencode}}">{{t | truncatechars:20}} <span class="badge">{{c}}</span></a></span>
+                </li>
+              {% endfor %} 
+            </ul>         
+          </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTrue">
+              <h4>Authors</h4>
+            </a>
+          </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            <ul class="nav nav-sidebar list-unstyled">
+              {% for a,c in author_list_counts %}
+                <li class="side-element"><span><a class="tag_style" href="{% url 'quotes:index' %}?author={{a|urlencode}}">{{a | truncatechars:20}} <span class="badge">{{c}}</span></a></span>
+                </li>
+              {% endfor %}
+            </ul>         
+          </div>
+        </div>
+    </div>
+    
+    
+{% endblock %}
+
+{% block content %}
+
+    {% if quote_list %}
+
+    <div>
+        <div id="quote_list_header">
+            <div class="quote_list_header_element">
+                <h4>Sort By: </h4>
+            </div>
+            <div class="quote_list_header_element">
+                {% if sort and sort == 'text_up' %}
+                  <a class="button_style btn btn-default" href="{% url 'quotes:index' %}?sort=text_down">Quote</a>
+                {% else %}
+                  <a class="button_style btn btn-default" href="{% url 'quotes:index' %}?sort=text_up">Quote</a>
+                {% endif %}
+            </div>
+            <div class="quote_list_header_element">
+                {% if sort and sort == 'author_up' %}
+                  <a class="button_style btn btn-default" href="{% url 'quotes:index' %}?sort=author_down">Author</a>
+                {% else %}
+                  <a class="button_style btn btn-default" href="{% url 'quotes:index' %}?sort=author_up">Author</a>
+                {% endif %}
+            </div>
+            <div class="quote_list_header_element">
+                {% if sort and sort == 'date_up' %}
+                  <a class="button_style btn btn-default" href="{% url 'quotes:index' %}?sort=date_down">Date Added</a>
+                {% else %}
+                  <a class="button_style btn btn-default" href="{% url 'quotes:index' %}?sort=date_up">Date Added</a>
+                {% endif %}
+            </div>
+            <div class="buffer">
+            </div>
+        </div>
+        <div id="quote_list_body">
+        {% for quote in quote_list %}
+            <div>
+                <div class="quote_element">
+                    <p><a href="{% url 'quotes:detail' quote.id %}">{{ quote.text | truncatechars:500}}</a></p>
+                </div>
+                <div class="quote_element quote_highlight">
+                    <p class="author">{{ quote.author }}</p>
+                    <p class="date_added">Added: {{ quote.date_added | date:"SHORT_DATE_FORMAT" }}</p>
+                    <div class="buffer">
+                </div>
+            </div>
+        {% endfor %}
+        <div>
+
+      
+    {% else %}
+        <p>No quotes.  Get started by adding your first quote.</p>
+    {% endif %}
+
+    {% if filter_params %}
+      {% for k,v in filter_params.items %}
+        <p>
+            <a class="tag_style" href="{% url 'quotes:index' %}">Remove {{k|capfirst}} filter for "{{v}}"
+            </a>
+        </p>
+      {% endfor %}
+    {% endif %}
+    </div>
+    
+    <nav>
+      <ul class="pagination">
+        {% if quote_list.has_previous %}
+        <li>
+          <a href="?page={{quote_list.previous_page_number}}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        {% else %}
+        <li class="disabled">
+          <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        {% endif %}
+        
+        {% for page in pages %}
+        <li><a href="?page={{page}}&keep=true">{{page}}</a></li>
+        {% endfor %}
+                
+        {% if quote_list.has_next %}
+        <li>
+          <a href="?page={{ quote_list.next_page_number}}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+        {% else %}
+        <li class="disabled">
+          <a href="#" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+        {% endif %} 
+      </ul>
+    </nav>
+
+{% endblock %}
+
+
+

@@ -1,0 +1,15 @@
+{% extends 'quotekeeper/base.html' %}
+
+{% block app_style %}
+  {% load static from staticfiles %}
+  <link rel="stylesheet" href="{% static "quotes/quotes.css" %}" />
+{% endblock %}
+    
+{% block side %}
+
+<ul class="nav nav-sidebar">
+  <li><a class="button_style btn btn-default" href="{% url 'quotes:index' %}">All quotes</a></li>
+  <li><a class="button_style btn btn-default" href="{% url 'quotes:new' %}">Add</a></li>
+</ul>
+
+{% endblock %}

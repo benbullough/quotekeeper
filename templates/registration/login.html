@@ -1,0 +1,55 @@
+{% extends "quotekeeper/base.html" %}
+
+{% block nav %} 
+{% endblock %}
+
+{% block app_style %}
+  {% load static from staticfiles %}
+  <link rel="stylesheet" href="{% static "quotekeeper/signin.css"  %}" />
+{% endblock %}
+
+{% block intro %}
+{% load widget_tweaks %}
+
+<div id="intro" >
+    <div class="container">
+    
+      <form class="form-signin" method="post" action="{% url 'django.contrib.auth.views.login' %}">
+        {% csrf_token %}
+      
+        <h2 class="form-signin-heading">Please sign in</h2>
+        
+        {% if form.errors %}
+            <div>
+            <p class="text-warning">Your username and password didn't match. Please try again.</p>
+            </div>
+        {% endif %}
+        
+        <div class="form-group">
+            <!-- label for="inputEmail" class="sr-only">Email address</label -->
+            {{ form.username.label_tag }}
+            <!-- input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus -->
+            {{ form.username | add_class:"form-control"}}
+        </div>
+        <div>
+            <!-- label for="inputPassword" class="sr-only">Password</label -->
+            {{ form.password.label_tag }}
+            <!-- input type="password" id="inputPassword" class="form-control" placeholder="Password" required -->
+            {{ form.password | add_class:"form-control"}}
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+      <p><a class="" href="{% url 'register' %}">Register</a></p>
+    </div> <!-- /container -->
+    
+</div>
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+

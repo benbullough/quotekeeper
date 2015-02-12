@@ -1,0 +1,32 @@
+{% extends "quotes/quotes_base.html" %}
+
+{% block content %}
+
+<!-- <a href="{% url 'quotes:index' %}">All Quotes</a> -->
+
+<dl id="quote_detail_list" class="dl-horizontal">
+  <dt>Quote</dt><dd>{{ quote.text }}</dd>
+  <dt>Author</dt><dd>{{ quote.author }}</dd>
+  <dt>Source</dt><dd>{{ quote.source }}</dd>
+  <dt>Notes</dt><dd>{{ quote.notes }}</dd>
+  <dt>Date Added</dt><dd>{{ quote.date_added | date:"SHORT_DATE_FORMAT"}}</dd>
+  <dt>Tags</dt> 
+  <dd>
+      {% for t in tags %}
+        <a class="tag_style btn btn-default" href="{% url 'quotes:index' %}?tag={{t|urlencode}}">{{t}}</a>
+      {% endfor %}
+  </dd>
+  
+  <dt></dt>
+  <br />
+  <dd>
+    <a class="detail_action button_style btn btn-primary" href="{% url 'quotes:edit' quote.id%}">Edit Quote</a>
+    <form class="button_form" action="{%url 'quotes:delete' quote.id%}" method="POST">
+        {% csrf_token %}
+        <button class="detail_action button_style btn btn-danger" type="submit" value="Delete">Delete</button>
+    </form> 
+   </dd>
+</dl>
+
+
+{% endblock %}

@@ -1,0 +1,58 @@
+
+/* Override Bootstrap defaults */
+.navbar-default {
+    background-color: #337AB7;
+}
+
+.navbar-default .navbar-brand {
+    color: #fff;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #fff;
+}
+
+.btn-primary {
+    background-color: #337AB7;
+}
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 80px;
+    padding-bottom: 40px;
+    background-color: #f9f9f9;
+}
+
+div#intro {
+    text-align: center;
+    position: relative;
+    left: 0px;
+}
+
+/* Removes vertical offset between
+   <button> and <a> tags that are styled as buttons inside forms 
+*/
+.button_form {
+    margin:0;
+    padding-left: 10px;
+}
+
+.button_style {
+    margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+
+    body {
+        font-size: 1.7em;
+    }
+
+    .btn {
+        font-size: 1.0em;
+    }
+    
+    .button_style {
+        margin-top: 8px;
+    }
+}
+}

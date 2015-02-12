@@ -1,0 +1,68 @@
+
+h3, th {
+    color:black;
+}
+
+
+.quote_element {
+    position: relative;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 0;
+    margin-left: 0;
+    padding: 10px 15px 20px;
+    background-color: #fff;
+    border-style: solid;
+    border-color: #ddd;
+    border-width: 1px;
+    border-radius: 6px;
+}
+
+.quote_element+.quote_highlight {
+    margin-top: -16px;
+    margin-bottom: 10px;
+    padding-bottom: 0px;
+    background-color: #eee;
+}
+
+#quote_list_header {
+    margin-top: 10px;
+    margin-bottom: 16px;
+}
+
+.quote_list_header_element {
+    float: left;
+}
+
+.author {
+    float: left;
+    margin-right: 5px;
+}
+
+.date_added{
+    float: right;
+}
+.buffer {
+    clear: both;
+}
+
+.detail_action {
+    float: left;
+    margin-right: 5px;
+}
+
+.side-element {
+    margin-top: 0;
+}
+
+#quote_table th {
+    background: gray;
+}
+
+#quote_table th a {
+    color: white
+}
+
+#quote_table td#date_added {
+    width:150px;
+}
